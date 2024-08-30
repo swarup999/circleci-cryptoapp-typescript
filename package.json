@@ -1,0 +1,51 @@
+{
+  "name": "@damnvulnerablecryptoapp/damn_vulnerable_crypto_app",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.1.0",
+  "description": "",
+  "main": "bin/index.js",
+  "bin": {
+    "dvca": "bin/index.js",
+    "damn-vulnerable-crypto-app": "bin/index.js"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "mkdirp": "^1.0.4",
+    "react-scripts": "^3.4.3"
+  },
+  "scripts": {
+    "build-react": "cd frontend && yarn run build",
+    "build-be": "cd backend && yarn build",
+    "build-with-deps": "yarn install-deps && yarn run build",
+    "build:docker": "docker build -t dvca .",
+    "build": "yarn run build-react && yarn run build-be && yarn run merge-projects",
+    "copy-fe-to-public": "yarn copyfiles \"frontend/build/**/*\" backend/build/public -a -u 2",
+    "merge-projects": "yarn run copy-fe-to-public",
+    "install-deps:be": "cd backend && yarn install",
+    "install-deps:react": "cd frontend && yarn install",
+    "install-deps": "yarn install && yarn run install-deps:be && yarn run install-deps:react",
+    "start": "cd backend && yarn run start:prod",
+    "build:start": "docker build -t dvca . && docker run -p 4000:4000 dvca",
+    "clean": "yarn rimraf backend/build && yarn rimraf frontend/build",
+    "markdown": "yarn markdownlint docs/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisfontes19/damn_vulnerable_crypto_app.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luisfontes19/damn_vulnerable_crypto_app/issues"
+  },
+  "homepage": "https://github.com/luisfontes19/damn_vulnerable_crypto_app#readme",
+  "devDependencies": {
+    "markdownlint": "^0.25.1",
+    "markdownlint-cli": "^0.23.2",
+    "rimraf": "^3.0.2",
+    "copyfiles": "^2.4.1",
+    "yarn": "^1.22.4"
+  }
+}

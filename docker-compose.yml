@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: damn-vulnerable-crypto-app/server:latest
+    ports:
+      - "4000:4000"
+    stdin_open: true  # -i
+    tty: true         # -t
+

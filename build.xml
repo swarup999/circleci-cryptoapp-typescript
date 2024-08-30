@@ -1,0 +1,40 @@
+<project name="DamnVulnerableCryptoApp" default="build" basedir=".">
+    
+    <!-- Property Definitions -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="dist"/>
+    <property name="node.dir" value="node_modules"/>
+
+    <!-- Initialize - install npm dependencies -->
+    <target name="init">
+        <exec executable="npm.cmd">
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <!-- Compile TypeScript -->
+    <target name="compile" depends="init">
+        <mkdir dir="${build.dir}"/>
+        <exec executable="npx.cmd">
+            <arg value="tsc"/>
+        </exec>
+    </target>
+
+    <!-- Clean build directories -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Run Tests -->
+    <target name="test" depends="compile">
+         <!--<exec executable="npx">
+            <arg value="jest"/>
+        </exec> -->
+    </target>
+
+    <!-- Build project -->
+    <target name="build" depends="clean,compile,test">
+        <echo message="Build successful!"/>
+    </target>
+
+</project>
